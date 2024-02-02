@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
-from libs.env.manager import EnvironmentManager
+from libs.env_mng.manager import EnvironmentManager
 from setup import ENV_PATH
 
 # Initialization of variables
