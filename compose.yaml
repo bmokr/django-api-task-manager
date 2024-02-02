@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+    environment:
+      - DEBUG=True
+      - SECRET_KEY=2f10e5b63bf1a5a8bd4e2f1cca23f4aea8f1f2545c878246
+      - DATABASE_URL=postgres://postgres:watermelonIce@db:5432/task_db
+
+  db:
+    image: postgres
+    environment:
+      POSTGRES_DB: task_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: watermelonIce

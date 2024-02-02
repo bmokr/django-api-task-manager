@@ -1,3 +1,9 @@
-from django.shortcuts import render
+from django.http import JsonResponse
 
-# Create your views here.
+
+def index(request):
+    data = {
+        'key1': 'value1',
+    }
+    response = JsonResponse(data, status=200)
+    return response
