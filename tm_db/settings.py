@@ -11,6 +11,13 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+from libs.env.manager import EnvironmentManager
+from setup import ENV_PATH
+
+# Initialization of variables
+manager = EnvironmentManager()
+manager.set_env(ENV_PATH)
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,12 +27,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-u#80ghpn11sv-wet0vqmyhacxetp!f%&br(cc=e&1#-$fvx%+_'
+SECRET_KEY = manager.secret_key
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = manager.debug == "True"
 
-ALLOWED_HOSTS = []
+if not DEBUG:
+    ALLOWED_HOSTS = manager.allowed_hosts or []
+else:
+    ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -76,11 +86,11 @@ WSGI_APPLICATION = 'tm_db.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'task_db',
-        'USER': 'postgres',
-        'PASSWORD': 'watermelonIce',
-        'HOST': 'localhost'
+        'ENGINE': manager.engine,
+        'NAME': manager.name,
+        'USER': manager.user,
+        'PASSWORD': manager.password,
+        'HOST': manager.host
     }
 }
 
