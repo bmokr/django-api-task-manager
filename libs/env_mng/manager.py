@@ -119,3 +119,4 @@ class EnvironmentManager:
             self._allowed_hosts = None
 
         return self._allowed_hosts
+
